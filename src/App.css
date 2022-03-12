@@ -1,0 +1,31 @@
+h2 {
+  color: red;
+}
+
+h1 {
+  color: blue;
+}
+
+.reportOuter {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.listItem:nth-child(odd) {
+  background: #fff;
+}
+
+.listItem:nth-child(even) {
+  background: #ddd;
+}
+
+.expandYes {
+  height: 100px;
+  background: red;
+  transition: 2s;
+}
+.expandNo {
+  transition: 2s;
+  height: 0;
+  display: none;
+}
