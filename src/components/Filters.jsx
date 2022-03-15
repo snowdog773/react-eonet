@@ -4,7 +4,10 @@ class Filters extends Component {
   render() {
     return (
       <>
-        <p>filters</p>
+        <div>
+          filters
+          <input type="text" onChange={this.props.typeFilter}></input>
+        </div>
       </>
     );
   }
