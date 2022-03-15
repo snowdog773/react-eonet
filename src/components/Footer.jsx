@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <p>Copyright 2022 Jon PITANS Web Design</p>
+      <p>Copyright 2022 Jon Pitans Web Design</p>
     </>
   );
 };
