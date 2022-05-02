@@ -15,7 +15,10 @@ class Report extends Component {
           <p>loading</p>
         ) : (
           <div className="reportOuter">
-            <Filters typeFilter={this.props.typeFilter} />
+            <Filters
+              typeFilter={this.props.typeFilter}
+              buttonFilter={this.props.buttonFilter}
+            />
             <div className="eventList">
               {this.props.displayData.map((e, index) => (
                 <ListItem key={index} e={e} />

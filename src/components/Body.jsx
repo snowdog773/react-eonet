@@ -33,6 +33,13 @@ class Body extends Component {
   };
   // live filters results based on contents of text box
 
+  buttonFilter = (input) => {
+    const updated = this.state.data.data.events.filter((e) =>
+      e.categories.find((f) => f.id === input)
+    );
+    this.setState({ displayData: updated });
+  };
+  // filters data by event type buttons, typed input field will override
   render() {
     return (
       <>
@@ -44,6 +51,7 @@ class Body extends Component {
               data={this.state.data}
               displayData={this.state.displayData}
               typeFilter={this.typeFilter}
+              buttonFilter={this.buttonFilter}
               loading={this.state.loading}
             />
           )}
