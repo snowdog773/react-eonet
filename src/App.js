@@ -4,7 +4,6 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 import "./App.css";
 
-
 class App extends Component {
   state = {};
   render() {
