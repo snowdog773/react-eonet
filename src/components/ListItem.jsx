@@ -9,12 +9,24 @@ class ListItem extends Component {
       : this.setState({ expand: "expandNo" });
 
   render() {
+    const { coordinates, date, magnitudeUnit, magnitudeValue } =
+      this.props.e.geometry[0];
     return (
       <>
         <div className="listItem" onClick={this.expand}>
           <p>{this.props.e.title}</p>
-          <p>{this.props.e.geometry[0].date}</p>
-          <div className={this.state.expand}></div>
+
+          <div className={this.state.expand}>
+            <p>{date}</p>
+            <p>
+              longitude {coordinates[0]}, latitude {coordinates[1]}
+            </p>
+            {magnitudeUnit && magnitudeValue && (
+              <p>
+                {magnitudeValue} {magnitudeUnit}
+              </p>
+            )}
+          </div>
         </div>
       </>
     );

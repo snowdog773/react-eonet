@@ -40,6 +40,11 @@ class Body extends Component {
     this.setState({ displayData: updated });
   };
   // filters data by event type buttons, typed input field will override
+
+  clearFilter = () => {
+    this.setState({ displayData: this.state.data.data.events });
+  };
+  // resets displayData to the downloaded data object via the Clear Filters button
   render() {
     return (
       <>
@@ -52,6 +57,7 @@ class Body extends Component {
               displayData={this.state.displayData}
               typeFilter={this.typeFilter}
               buttonFilter={this.buttonFilter}
+              clearFilter={this.clearFilter}
               loading={this.state.loading}
             />
           )}

@@ -18,6 +18,7 @@ class Report extends Component {
             <Filters
               typeFilter={this.props.typeFilter}
               buttonFilter={this.props.buttonFilter}
+              clearFilter={this.props.clearFilter}
             />
             <div className="eventList">
               {this.props.displayData.map((e, index) => (

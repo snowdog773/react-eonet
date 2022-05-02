@@ -20,6 +20,7 @@ class Filters extends Component {
           <button onClick={() => this.props.buttonFilter("seaLakeIce")}>
             Icebergs
           </button>
+          <button onClick={this.props.clearFilter}>Clear Filters</button>
         </div>
       </>
     );
