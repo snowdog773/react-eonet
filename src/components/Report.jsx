@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import ListItem from "./ListItem";
 import Filters from "./Filters";
+import Loading from "./Loading";
 
 class Report extends Component {
   state = {};
@@ -12,7 +13,7 @@ class Report extends Component {
         <h2>report</h2>
 
         {this.props.loading ? (
-          <p>loading</p>
+          <Loading />
         ) : (
           <div className="reportOuter">
             <Filters
@@ -22,7 +23,11 @@ class Report extends Component {
             />
             <div className="eventList">
               {this.props.displayData.map((e, index) => (
-                <ListItem key={index} e={e} />
+                <ListItem
+                  key={index}
+                  e={e}
+                  filterChange={this.props.filterChange}
+                />
               ))}
             </div>
           </div>

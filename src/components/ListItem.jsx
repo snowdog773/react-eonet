@@ -8,6 +8,11 @@ class ListItem extends Component {
       ? this.setState({ expand: "expandYes" })
       : this.setState({ expand: "expandNo" });
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.filterChange !== this.props.filterChange)
+      this.setState({ expand: "expandNo" });
+  }
+
   render() {
     const { coordinates, date, magnitudeUnit, magnitudeValue } =
       this.props.e.geometry[0];

@@ -7,20 +7,31 @@ import Report from "./Report";
 import Contact from "./Contact";
 
 class Body extends Component {
-  state = { page: "about", data: {}, displayData: {}, loading: true };
-  //data is the entire object grabbed from the API, displayData is the manipulated version of that object we display
+  state = {
+    page: "reports",
+    data: {},
+    displayData: {},
+    loading: true,
+    filterChange: false,
+  };
+  //data is the entire object grabbed from the API, displayData is the manipulated version of that
+  //object we display. filterChange is a boolean that allows listItem components to close their expanded
+  // states by comparing to prevProps when a filter is updated. Every time a filter method is called,
+  // filterchange flips from true to false or vice versa.
 
   navigation = (click) => this.setState({ page: click });
   // for conditionally rendering which page component is displayed
   componentDidMount() {
-    axios.get("https://eonet.gsfc.nasa.gov/api/v3/events").then((res) => {
-      this.setState({
-        data: res,
-        displayData: res.data.events,
-        loading: false,
+    axios
+      .get("https://eonet.gsfc.nasa.gov/api/v3/events?status=all&days=365")
+      .then((res) => {
+        this.setState({
+          data: res,
+          displayData: res.data.events,
+          loading: false,
+        });
+        console.log(res);
       });
-      console.log(res);
-    });
   }
   //fetches API data on mounting
 
@@ -37,12 +48,23 @@ class Body extends Component {
     const updated = this.state.data.data.events.filter((e) =>
       e.categories.find((f) => f.id === input)
     );
-    this.setState({ displayData: updated });
+
+    this.state.filterChange
+      ? this.setState({ filterChange: false, displayData: updated })
+      : this.setState({ filterChange: true, displayData: updated });
   };
   // filters data by event type buttons, typed input field will override
 
   clearFilter = () => {
-    this.setState({ displayData: this.state.data.data.events });
+    this.state.filterChange
+      ? this.setState({
+          filterChange: false,
+          displayData: this.state.data.data.events,
+        })
+      : this.setState({
+          filterChange: true,
+          displayData: this.state.data.data.events,
+        });
   };
   // resets displayData to the downloaded data object via the Clear Filters button
   render() {
@@ -59,6 +81,7 @@ class Body extends Component {
               buttonFilter={this.buttonFilter}
               clearFilter={this.clearFilter}
               loading={this.state.loading}
+              filterChange={this.state.filterChange}
             />
           )}
           {this.state.page === "contact" && <Contact />}
