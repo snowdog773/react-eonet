@@ -10,17 +10,17 @@ class Report extends Component {
   render() {
     return (
       <>
-        <h2>report</h2>
+        {/* <h2>report</h2> */}
 
-        {this.props.loading ? (
-          <Loading />
-        ) : (
-          <div className="reportOuter">
-            <Filters
-              typeFilter={this.props.typeFilter}
-              buttonFilter={this.props.buttonFilter}
-              clearFilter={this.props.clearFilter}
-            />
+        <div className="reportOuter">
+          <Filters
+            typeFilter={this.props.typeFilter}
+            buttonFilter={this.props.buttonFilter}
+            clearFilter={this.props.clearFilter}
+          />
+          {this.props.loading ? (
+            <Loading />
+          ) : (
             <div className="eventList">
               {this.props.displayData.map((e, index) => (
                 <ListItem
@@ -30,8 +30,8 @@ class Report extends Component {
                 />
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </>
     );
   }

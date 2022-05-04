@@ -23,7 +23,7 @@ class Body extends Component {
   // for conditionally rendering which page component is displayed
   componentDidMount() {
     axios
-      .get("https://eonet.gsfc.nasa.gov/api/v3/events?status=all&days=365")
+      .get("https://eonet.gsfc.nasa.gov/api/v3/events?status=all&days=100")
       .then((res) => {
         this.setState({
           data: res,

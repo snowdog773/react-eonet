@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from "react";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 class ListItem extends Component {
   state = { expand: "expandNo" };
 
@@ -18,7 +23,33 @@ class ListItem extends Component {
       this.props.e.geometry[0];
     return (
       <>
-        <div className="listItem" onClick={this.expand}>
+        <Accordion
+          expanded={this.state.expand === "expandYes" ? true : false}
+          onClick={this.expand}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>{this.props.e.title}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Date : {date}</p>
+              <p>
+                Global Coordinates : Longitude - {coordinates[0]}, Latitude{" "}
+                {coordinates[1]}
+              </p>
+              {magnitudeUnit && magnitudeValue && (
+                <p>
+                  This event has a magnitude of {magnitudeValue} {magnitudeUnit}
+                </p>
+              )}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        {/* <div className="listItem" onClick={this.expand}>
           <p>{this.props.e.title}</p>
 
           <div className={this.state.expand}>
@@ -32,7 +63,7 @@ class ListItem extends Component {
               </p>
             )}
           </div>
-        </div>
+        </div> */}
       </>
     );
   }
