@@ -29,8 +29,8 @@ class ListItem extends Component {
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+            aria-controls={this.props.e.title}
+            id={this.props.e.title}
           >
             <Typography>{this.props.e.title}</Typography>
           </AccordionSummary>

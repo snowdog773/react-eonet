@@ -13,6 +13,9 @@ class Body extends Component {
     displayData: {},
     loading: true,
     filterChange: false,
+    start: "",
+    end: "",
+    dateToday: "",
   };
   //data is the entire object grabbed from the API, displayData is the manipulated version of that
   //object we display. filterChange is a boolean that allows listItem components to close their expanded
@@ -22,6 +25,12 @@ class Body extends Component {
   navigation = (click) => this.setState({ page: click });
   // for conditionally rendering which page component is displayed
   componentDidMount() {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    const dateToday = `${yyyy}-${mm}-${dd}`;
+    this.setState({ dateToday });
     axios
       .get("https://eonet.gsfc.nasa.gov/api/v3/events?status=all&days=100")
       .then((res) => {
@@ -29,11 +38,41 @@ class Body extends Component {
           data: res,
           displayData: res.data.events,
           loading: false,
+
+          start: dateToday,
+          end: dateToday,
         });
         console.log(res);
       });
   }
   //fetches API data on mounting
+
+  getApiData = (status = "all") => {
+    this.setState({ loading: true });
+    console.log(
+      `https://eonet.gsfc.nasa.gov/api/v3/events?status=${status}&start=${this.state.start}&end=${this.state.end}`
+    );
+    axios
+      .get(
+        `https://eonet.gsfc.nasa.gov/api/v3/events?status=${status}&start=${this.state.start}&end=${this.state.end}`
+      )
+      .then((res) => {
+        this.setState({
+          data: res,
+          displayData: res.data.events,
+
+          loading: false,
+        });
+      });
+  };
+
+  startDate = (input) => {
+    this.setState({ start: input.target.value });
+  };
+  endDate = (input) => {
+    this.setState({ end: input.target.value });
+    console.log(this.state);
+  };
 
   typeFilter = (input) => {
     const matcher = new RegExp(`${input.target.value}`, "i");
@@ -73,17 +112,22 @@ class Body extends Component {
         <Nav navigation={this.navigation} />
         <div>
           {this.state.page === "about" && <About />}
-          {this.state.page === "reports" && (
-            <Report
-              data={this.state.data}
-              displayData={this.state.displayData}
-              typeFilter={this.typeFilter}
-              buttonFilter={this.buttonFilter}
-              clearFilter={this.clearFilter}
-              loading={this.state.loading}
-              filterChange={this.state.filterChange}
-            />
-          )}
+          {this.state.page === "reports" &&
+            (this.state.dateToday ? (
+              <Report
+                data={this.state.data}
+                displayData={this.state.displayData}
+                typeFilter={this.typeFilter}
+                buttonFilter={this.buttonFilter}
+                clearFilter={this.clearFilter}
+                loading={this.state.loading}
+                filterChange={this.state.filterChange}
+                getApiData={this.getApiData}
+                startDate={this.startDate}
+                endDate={this.endDate}
+                dateToday={this.state.dateToday}
+              />
+            ) : null)}
           {this.state.page === "contact" && <Contact />}
         </div>
       </>

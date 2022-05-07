@@ -17,6 +17,10 @@ class Report extends Component {
             typeFilter={this.props.typeFilter}
             buttonFilter={this.props.buttonFilter}
             clearFilter={this.props.clearFilter}
+            getApiData={this.props.getApiData}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
+            dateToday={this.props.dateToday}
           />
           {this.props.loading ? (
             <Loading />
