@@ -1,11 +1,12 @@
 body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "roboto";
   overflow-y: scroll;
-  background: #ddd;
+  background: #ddf;
 }
 
-h2 {
-  color: red;
+@font-face {
+  font-family: "roboto";
+  src: url("./fonts/Roboto-Regular.ttf");
 }
 
 h1 {
@@ -40,6 +41,9 @@ h1 {
   transition: 0.3s;
 }
 
+.event-list {
+  margin: 8px 0 50px 0;
+}
 .reportOuter {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
@@ -49,7 +53,7 @@ h1 {
 #spinner {
   display: block;
   margin-top: 100px;
-  background: #fff;
+  background: #ddf;
 }
 
 #loadingCircleTag {
@@ -59,33 +63,33 @@ h1 {
   color: #000;
 }
 
-.listItem {
-  padding: 5px;
-  margin: 0;
+div#filter-outer p.filter-label {
+  text-align: center;
+  font-family: "roboto";
+  color: #444;
+  font-size: 10pt;
+  margin-bottom: 0;
 }
 
-.listItem:nth-child(odd) {
-  background: #bbb;
+div.quick-filter p.filter-label {
+  text-align: center;
+  font-family: "roboto";
+  color: #444;
+  font-size: 10pt;
+  margin-bottom: 0;
 }
 
-.listItem:nth-child(even) {
-  background: #ddd;
+iframe {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  height: 300px;
 }
 
-.expandYes {
-  height: 100px;
-  background: #fff;
-  transition: 2s;
-  margin: 10px;
-}
-.expandNo {
-  transition: 2s;
-  height: 0;
-  display: none;
-}
-
-.filterButtons {
-  width: 100px;
+div.aboutContent {
+  text-align: center;
+  line-height: 25pt;
+  padding: 10px;
 }
 
 .footer {

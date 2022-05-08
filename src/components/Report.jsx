@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import ListItem from "./ListItem";
 import Filters from "./Filters";
 import Loading from "./Loading";
+import QuickFilter from "./QuickFilter";
 
 class Report extends Component {
   state = {};
@@ -10,8 +11,6 @@ class Report extends Component {
   render() {
     return (
       <>
-        {/* <h2>report</h2> */}
-
         <div className="reportOuter">
           <Filters
             typeFilter={this.props.typeFilter}
@@ -21,11 +20,13 @@ class Report extends Component {
             startDate={this.props.startDate}
             endDate={this.props.endDate}
             dateToday={this.props.dateToday}
+            setEventStatus={this.props.setEventStatus}
+            setEventType={this.props.setEventType}
           />
           {this.props.loading ? (
             <Loading />
           ) : (
-            <div className="eventList">
+            <div className="event-list">
               {this.props.displayData.map((e, index) => (
                 <ListItem
                   key={index}
@@ -35,6 +36,11 @@ class Report extends Component {
               ))}
             </div>
           )}
+          <QuickFilter
+            typeFilter={this.props.typeFilter}
+            buttonFilter={this.props.buttonFilter}
+            clearFilter={this.props.clearFilter}
+          />
         </div>
       </>
     );

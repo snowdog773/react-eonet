@@ -15,6 +15,8 @@ class Body extends Component {
     filterChange: false,
     start: "",
     end: "",
+    eventType: "",
+    status: "",
     dateToday: "",
   };
   //data is the entire object grabbed from the API, displayData is the manipulated version of that
@@ -41,20 +43,17 @@ class Body extends Component {
 
           start: dateToday,
           end: dateToday,
+          status: "all",
         });
-        console.log(res);
       });
   }
   //fetches API data on mounting
 
-  getApiData = (status = "all") => {
+  getApiData = () => {
     this.setState({ loading: true });
-    console.log(
-      `https://eonet.gsfc.nasa.gov/api/v3/events?status=${status}&start=${this.state.start}&end=${this.state.end}`
-    );
     axios
       .get(
-        `https://eonet.gsfc.nasa.gov/api/v3/events?status=${status}&start=${this.state.start}&end=${this.state.end}`
+        `https://eonet.gsfc.nasa.gov/api/v3/events?status=${this.state.status}&start=${this.state.start}&end=${this.state.end}&category=${this.state.eventType}`
       )
       .then((res) => {
         this.setState({
@@ -66,13 +65,26 @@ class Body extends Component {
       });
   };
 
+  //getApiData returns a new API request based on the selections on the left hand panel of the page.
+  // Is called when "submit" is pressed
+
   startDate = (input) => {
     this.setState({ start: input.target.value });
   };
   endDate = (input) => {
     this.setState({ end: input.target.value });
-    console.log(this.state);
   };
+
+  setEventStatus = (input) => {
+    this.setState({ status: input.target.value });
+  };
+
+  setEventType = (input) => {
+    this.setState({ eventType: input.target.value });
+  };
+
+  // these 4 functions save the current value of the options on the left hand panel to state
+  // ready to be used in the API call when "submit" is pressed
 
   typeFilter = (input) => {
     const matcher = new RegExp(`${input.target.value}`, "i");
@@ -105,7 +117,7 @@ class Body extends Component {
           displayData: this.state.data.data.events,
         });
   };
-  // resets displayData to the downloaded data object via the Clear Filters button
+  // resets displayData to the currently downloaded data object via the Clear Filters button
   render() {
     return (
       <>
@@ -126,6 +138,8 @@ class Body extends Component {
                 startDate={this.startDate}
                 endDate={this.endDate}
                 dateToday={this.state.dateToday}
+                setEventStatus={this.setEventStatus}
+                setEventType={this.setEventType}
               />
             ) : null)}
           {this.state.page === "contact" && <Contact />}

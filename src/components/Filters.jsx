@@ -4,20 +4,29 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+
+import Select from "@mui/material/Select";
+// import FormControl from '@mui/material/FormControl';
+// import FormLabel from "@mui/material/FormLabel";
 
 class Filters extends Component {
   state = {};
 
   render() {
     return (
-      <>
+      <div id="filter-outer">
         <Box
           sx={{
             display: "flex",
             "& > *": {
               m: 1,
             },
+            flexDirection: "column",
           }}
         >
           <ButtonGroup
@@ -25,60 +34,77 @@ class Filters extends Component {
             aria-label="vertical outlined button group"
             variant="contained"
           >
+            <InputLabel>Start Date</InputLabel>
             <TextField
               id="startDate"
-              label="Start Date"
               type="date"
               defaultValue={this.props.dateToday}
               onChange={this.props.startDate}
+              sx={{
+                background: "#fff",
+                borderRadius: "5px",
+                margin: "5px 0 0",
+              }}
             />
+            <InputLabel>End Date</InputLabel>
             <TextField
               id="endDate"
-              label="End Date"
               type="date"
               defaultValue={this.props.dateToday}
               onChange={this.props.endDate}
+              sx={{
+                background: "#fff",
+                borderRadius: "5px",
+                margin: "5px 0 0",
+              }}
             />
+            <InputLabel>Event Type</InputLabel>
+            <Select onChange={this.props.setEventType}>
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value={"drought"}>Drought</MenuItem>
+              <MenuItem value={"dustHaze"}>Dust and Haze</MenuItem>
+              <MenuItem value={"earthquakes"}>Earthquakes</MenuItem>
+              <MenuItem value={"floods"}>Floods</MenuItem>
+              <MenuItem value={"landslides"}>Landslides</MenuItem>
+              <MenuItem value={"manmade"}>Man Made</MenuItem>
+              <MenuItem value={"seaLakeIce"}>Sea and Lake Ice</MenuItem>
+              <MenuItem value={"severeStorms"}>Severe Storms</MenuItem>
+              <MenuItem value={"snow"}>Snow</MenuItem>
+              <MenuItem value={"tempExtremes"}>Temperature Extremes</MenuItem>
+              <MenuItem value={"volcanoes"}>Volcanoes</MenuItem>
+              <MenuItem value={"waterColor"}>Water Color</MenuItem>
+              <MenuItem value={"wildfires"}>Wildfires</MenuItem>
+            </Select>
+
+            <RadioGroup
+              defaultValue="all"
+              name="radio-buttons-group"
+              sx={{ marginLeft: "10px" }}
+              onChange={this.props.setEventStatus}
+            >
+              <FormControlLabel
+                value="all"
+                control={<Radio />}
+                label="All Events"
+              />
+              <FormControlLabel
+                value="open"
+                control={<Radio />}
+                label="Current Events"
+              />
+              <FormControlLabel
+                value="closed"
+                control={<Radio />}
+                label="Past Events"
+              />
+            </RadioGroup>
 
             <Button key="submit" onClick={() => this.props.getApiData()}>
               Submit
             </Button>
-            <TextField
-              id="filled-basic"
-              label="Search Events by Title"
-              variant="filled"
-              onChange={this.props.typeFilter}
-            />
-            <Button key="showAll" onClick={this.props.clearFilter}>
-              Show All
-            </Button>
-            <Button
-              key="severeStorms"
-              onClick={() => this.props.buttonFilter("severeStorms")}
-            >
-              Severe Storms
-            </Button>
-            <Button
-              key="volcanoes"
-              onClick={() => this.props.buttonFilter("volcanoes")}
-            >
-              Volcanoes
-            </Button>
-            <Button
-              key="wildfires"
-              onClick={() => this.props.buttonFilter("wildfires")}
-            >
-              Wildfires
-            </Button>
-            <Button
-              key="seaLakeIce"
-              onClick={() => this.props.buttonFilter("seaLakeIce")}
-            >
-              Icebergs
-            </Button>
           </ButtonGroup>
         </Box>
-      </>
+      </div>
     );
   }
 }

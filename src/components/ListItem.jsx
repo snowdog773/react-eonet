@@ -20,7 +20,16 @@ class ListItem extends Component {
 
   render() {
     const { coordinates, date, magnitudeUnit, magnitudeValue } =
-      this.props.e.geometry[0];
+      this.props.e.geometry[this.props.e.geometry.length - 1];
+    const coords = [...coordinates].flat(2);
+    console.log(coords);
+    // Array.isArray(coordinates[0])
+    //   ? (coords = [...coordinates[0]])
+    //   : (coords = [...coordinates]);
+    // console.log(coords);
+    // some coordinates were returning as a series of coordinates in an array, this allows only the first pair to
+    //return
+    const matchDate = date.match(/\d{1,4}-\d{1,2}-\d{1,4}/);
     return (
       <>
         <Accordion
@@ -36,15 +45,34 @@ class ListItem extends Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Date : {date}</p>
+              <p>Date : {matchDate}</p>
               <p>
-                Global Coordinates : Longitude - {coordinates[0]}, Latitude{" "}
-                {coordinates[1]}
+                Global Coordinates : Longitude - {coords[0]}, Latitude{" "}
+                {coords[1]}
               </p>
+              <iframe
+                // src={`https://maps.google.com/maps?q=${coordinates[1]},${coordinates[0]}&maptype=satellite&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDDJ7XAit17JVUXUYsQy9TfMJLcu92FWb8&q=${coords[1]},${coords[0]}&maptype=satellite&zoom=13`}
+                frameBorder="0"
+                scrolling="no"
+              ></iframe>
               {magnitudeUnit && magnitudeValue && (
-                <p>
-                  This event has a magnitude of {magnitudeValue} {magnitudeUnit}
-                </p>
+                <div>
+                  <p>
+                    This event has a magnitude of {magnitudeValue}{" "}
+                    {magnitudeUnit}
+                  </p>
+                  <p>
+                    Source link :{" "}
+                    <a
+                      href={this.props.e.sources[0].url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {this.props.e.sources[0].url}
+                    </a>
+                  </p>
+                </div>
               )}
             </Typography>
           </AccordionDetails>
