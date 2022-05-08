@@ -52,7 +52,7 @@ class ListItem extends Component {
               </p>
               <iframe
                 // src={`https://maps.google.com/maps?q=${coordinates[1]},${coordinates[0]}&maptype=satellite&t=&z=13&ie=UTF8&iwloc=&output=embed`}
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDDJ7XAit17JVUXUYsQy9TfMJLcu92FWb8&q=${coords[1]},${coords[0]}&maptype=satellite&zoom=13`}
+                src={`https://www.google.com/maps/embed/v1/place?key=hidden&q=${coords[1]},${coords[0]}&maptype=satellite&zoom=13`}
                 frameBorder="0"
                 scrolling="no"
               ></iframe>
