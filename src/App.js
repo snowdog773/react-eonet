@@ -4,8 +4,10 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 import "./App.css";
 
+console.log(key);
 class App extends Component {
   state = {};
+
   render() {
     return (
       <>

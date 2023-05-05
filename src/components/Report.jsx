@@ -13,15 +13,16 @@ class Report extends Component {
       <>
         <div className="reportOuter">
           <Filters
-            typeFilter={this.props.typeFilter}
-            buttonFilter={this.props.buttonFilter}
-            clearFilter={this.props.clearFilter}
-            getApiData={this.props.getApiData}
-            startDate={this.props.startDate}
-            endDate={this.props.endDate}
-            dateToday={this.props.dateToday}
-            setEventStatus={this.props.setEventStatus}
-            setEventType={this.props.setEventType}
+          {...this.props}
+            // typeFilter={this.props.typeFilter}
+            // buttonFilter={this.props.buttonFilter}
+            // clearFilter={this.props.clearFilter}
+            // getApiData={this.props.getApiData}
+            // startDate={this.props.startDate}
+            // endDate={this.props.endDate}
+            // dateToday={this.props.dateToday}
+            // setEventStatus={this.props.setEventStatus}
+            // setEventType={this.props.setEventType}
           />
           {this.props.loading ? (
             <Loading />

@@ -33,6 +33,7 @@ class Body extends Component {
     const yyyy = today.getFullYear();
     const dateToday = `${yyyy}-${mm}-${dd}`;
     this.setState({ dateToday });
+    
     axios
       .get("https://eonet.gsfc.nasa.gov/api/v3/events?status=all&days=100")
       .then((res) => {
@@ -45,6 +46,7 @@ class Body extends Component {
           end: dateToday,
           status: "all",
         });
+        console.log(this.state.data);
       });
   }
   //fetches API data on mounting
